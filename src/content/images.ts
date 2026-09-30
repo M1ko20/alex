@@ -9,7 +9,14 @@ export interface ImageData {
   accent: string
 }
 
-const images = manifest as Record<string, ImageData>
+// The manifest stores root-relative paths; prefix them when the site lives under a sub-path.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+const images: Record<string, ImageData> = Object.fromEntries(
+  Object.entries(manifest as Record<string, ImageData>).map(([file, data]) => [
+    file,
+    { ...data, srcset: data.srcset.map((s) => ({ ...s, src: base + s.src })) },
+  ]),
+)
 
 export function image(file: string): ImageData {
   const data = images[file]

@@ -473,7 +473,7 @@ main {
 }
 
 .hero {
-  --hero-h: max(240px, calc(100svh - var(--header-h) - 104px));
+  --hero-h: max(380px, calc(100svh - var(--header-h) - 104px));
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -489,6 +489,8 @@ main {
   grid-row: 1;
   position: relative;
   z-index: 3;
+  /* the name is sized from the room beside the painting (cqi), so it never runs into it */
+  container-type: inline-size;
 }
 
 .hero-eyebrow {
@@ -504,7 +506,7 @@ main {
 
 .hero-name {
   font-family: var(--font-display);
-  font-size: clamp(4rem, min(10.6vw, 20svh), 13.5rem);
+  font-size: clamp(2.6rem, min(22cqi, 20svh), 13.5rem);
   font-weight: 400;
   line-height: 0.9;
 }
@@ -533,6 +535,7 @@ main {
   grid-column: 1;
   grid-row: 3;
   align-self: end;
+  padding-top: clamp(20px, 4svh, 48px);
   padding-bottom: 64px;
   max-width: 38ch;
 }
@@ -641,8 +644,8 @@ main {
 
 /* A wall label: the title in her voice, the number opposite, the facts in small print below. */
 .label {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
+  flex-wrap: wrap;
   gap: 3px 14px;
   align-items: baseline;
   margin-top: 12px;
@@ -654,6 +657,8 @@ main {
   font-weight: 700;
   line-height: 1.15;
   text-wrap: balance;
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 .label-no,
@@ -664,11 +669,12 @@ main {
 }
 
 .label-no {
+  flex: none;
   font-variant-numeric: tabular-nums;
 }
 
 .label-meta {
-  grid-column: 1 / -1;
+  flex: 0 0 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 0 0.55em;
@@ -1600,7 +1606,7 @@ main {
   }
 
   .hero-name {
-    font-size: clamp(4rem, 17vw, 10.5rem);
+    font-size: clamp(2.6rem, min(17vw, 22cqi), 10.5rem);
   }
 
   .hero-work {
@@ -1728,7 +1734,7 @@ main {
   }
 
   .hero-name {
-    font-size: clamp(3.6rem, 21vw, 7rem);
+    font-size: clamp(2.6rem, min(21vw, 22cqi), 7rem);
   }
 
   .hero-work {

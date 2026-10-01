@@ -7,6 +7,7 @@ import { Art } from '../components/Art'
 import { ratio } from '../content/images'
 import { Piece, Wall } from '../components/Wall'
 import { Reveal } from '../components/Reveal'
+import { LabelPreview } from '../components/LabelPreview'
 
 const YEARS = artworks.flatMap((a) => (a.year ? [a.year] : []))
 const SPAN = `${Math.min(...YEARS)}–${Math.max(...YEARS)}`
@@ -53,6 +54,9 @@ export function Home() {
           </p>
         </div>
       </section>
+
+      {/* TEMPORARY: label comparison */}
+      <LabelPreview />
 
       <section id="works" className="works" aria-labelledby="works-title">
         <header className="works-head">

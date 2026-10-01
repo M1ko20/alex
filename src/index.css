@@ -650,9 +650,17 @@ main {
 
 .label-title {
   color: var(--ink);
-  font-size: 18px;
+  font-size: 23px;
+  font-weight: 700;
   line-height: 1.15;
   text-wrap: balance;
+}
+
+.label-no,
+.label-meta {
+  font-size: 12.5px;
+  font-weight: 650;
+  color: var(--ink-2);
 }
 
 .label-no {

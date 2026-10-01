@@ -1,0 +1,73 @@
+/* TEMPORARY: label style comparison. Delete with LabelPreview.tsx. */
+
+.label-preview {
+  max-width: var(--max);
+  margin: clamp(48px, 7vw, 104px) auto 0;
+  padding: 0 var(--gutter);
+  display: grid;
+  gap: 72px;
+}
+
+.lv-head {
+  margin: 0 0 18px;
+  padding: 8px 12px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 14px;
+}
+
+.lv-head strong {
+  margin-right: 0.6em;
+}
+
+.lv-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 32px 24px;
+  align-items: end;
+}
+
+/* 0 — as it was */
+.lv-old .label-title {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.lv-old .label-no,
+.lv-old .label-meta {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ink-3);
+}
+
+/* 1 — current: nothing to override */
+
+/* 2 — bigger, regular weight */
+.lv-big .label-title,
+.lv-rule .label-title {
+  font-size: 27px;
+  font-weight: 400;
+}
+
+/* 3 — upright */
+.lv-upright .label-title {
+  font-size: 25px;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* 4 — sans, real bold */
+.lv-sans .label-title {
+  font-family: var(--font-text);
+  font-style: normal;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* 5 — bigger, with a rule and more room */
+.lv-rule .label {
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule-strong);
+}

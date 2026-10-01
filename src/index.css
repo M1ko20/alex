@@ -407,6 +407,7 @@ h3 {
   margin: auto 0 0;
   padding-top: 28px;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 6px;
   justify-items: start;
 }
@@ -414,6 +415,8 @@ h3 {
 .menu .menu-direct a {
   font-size: 15px;
   line-height: 1.5;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 /* ---------- Footer --------------------------------------------------------- */
@@ -718,6 +721,8 @@ main {
 /* Phones: one walk down the wall. */
 .wall.is-stack {
   display: grid;
+  /* minmax(0, …): the column is as wide as the wall, never as wide as the widest image file */
+  grid-template-columns: minmax(0, 1fr);
   gap: 40px;
 }
 
@@ -928,7 +933,7 @@ main {
 
 .work-facts div {
   display: grid;
-  grid-template-columns: 5.5em 1fr;
+  grid-template-columns: 5.5em minmax(0, 1fr);
   gap: 12px;
 }
 
@@ -1111,6 +1116,10 @@ main {
   gap: 14px;
   text-decoration: none;
   min-width: 0;
+}
+
+.pager-title {
+  overflow-wrap: anywhere;
 }
 
 .pager-link.is-next {
@@ -1417,6 +1426,7 @@ main {
 .pin-photo {
   --cell-h: clamp(220px, 26vw, 420px);
   flex: var(--r) 1 calc(var(--cell-h) * var(--r));
+  min-width: 0;
   max-width: calc(var(--cell-h) * var(--r) * 1.4);
 }
 
@@ -1475,6 +1485,7 @@ main {
 
 .contact-direct {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 26px;
   padding-top: 4px;
 }
@@ -1486,6 +1497,7 @@ main {
 
 .inquiry {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 22px;
   max-width: 680px;
 }
@@ -1496,7 +1508,9 @@ main {
 
 .field {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 4px;
+  min-width: 0;
 }
 
 .field label {
@@ -1506,12 +1520,12 @@ main {
 
 .field-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 22px;
 }
 
 .is-compact .field-row {
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 16px;
 }
 
@@ -1519,6 +1533,7 @@ main {
 .field select,
 .field textarea {
   width: 100%;
+  min-width: 0;
   font: inherit;
   font-size: 16px;
   color: var(--ink);
@@ -1799,7 +1814,9 @@ main {
     display: block;
   }
 
-  .work-label > .availability {
+  .work-label > .availability,
+  .work-label > .work-facts,
+  .is-wide .work-label > .work-facts {
     margin-top: 20px;
   }
 
@@ -1808,9 +1825,25 @@ main {
     --cell-h: 150px;
   }
 
+  /* Two halves of the screen: small thumbs, so a title has room for its words. */
+  .work-pager {
+    gap: 16px;
+  }
+
+  .pager-link {
+    flex: 1 1 0;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .pager-thumb {
+    width: 40px;
+  }
+
   .work-pager .pager-title {
+    font-size: 14.5px;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
@@ -1852,7 +1885,7 @@ main {
   }
 
   .field-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .footer-grid {
@@ -1863,8 +1896,82 @@ main {
     grid-row: auto;
   }
 
-  .checklist table {
-    min-width: 560px;
+  /* The list, re-set for a narrow screen: each work is a small card of its own
+     (number, thumb, then title / facts / status) instead of a table to scroll sideways. */
+  .checklist-scroll {
+    overflow-x: visible;
+  }
+
+  .checklist table,
+  .checklist tbody {
+    display: block;
+  }
+
+  .checklist thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .checklist tbody {
+    border-top: 1px solid var(--rule-strong);
+  }
+
+  .checklist tr {
+    display: grid;
+    grid-template-columns: 1.9em 44px auto auto minmax(0, 1fr);
+    column-gap: 12px;
+    row-gap: 2px;
+    align-items: baseline;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .checklist td {
+    padding: 0;
+    border: 0;
+    font-size: 13.5px;
+    color: var(--ink-2);
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .checklist td:empty {
+    display: none;
+  }
+
+  .checklist .num {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    width: auto;
+  }
+
+  .checklist .thumb {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    width: auto;
+    align-self: start;
+  }
+
+  .checklist .thumb .art {
+    width: 44px;
+  }
+
+  .checklist .title,
+  .checklist .status {
+    grid-column: 3 / -1;
+  }
+
+  .checklist .title a {
+    color: var(--ink);
+  }
+
+  .checklist .fact:not(:empty) ~ .fact:not(:empty)::before {
+    content: '·';
+    margin: 0 7px 0 -5px;
+    color: var(--ink-3);
   }
 }
 

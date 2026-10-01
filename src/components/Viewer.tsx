@@ -5,6 +5,7 @@ import type { ArtworkImage } from '../content/types'
 import { image, largest } from '../content/images'
 
 const ZOOM = 2.6
+const TOUCH = typeof matchMedia === 'function' && matchMedia('(hover: none)').matches
 
 /**
  * Full-screen viewing: the image on a dark ground, nothing else.
@@ -85,7 +86,13 @@ export function Viewer({
               {current.caption && <span className="dim"> — {current.caption}</span>}
             </span>
             <span className="viewer-hint dim">
-              {zoomed ? 'Move to look around · click to step back' : 'Click to look closer'}
+              {TOUCH
+                ? zoomed
+                  ? 'Drag to look around · tap to step back'
+                  : 'Tap to look closer'
+                : zoomed
+                  ? 'Move to look around · click to step back'
+                  : 'Click to look closer'}
             </span>
             <button ref={closeRef} className="viewer-close" onClick={onClose}>
               Close

@@ -72,15 +72,15 @@ export function Available() {
                       <Art file={w.images[0].file} alt="" sizes="64px" />
                     </Link>
                   </td>
-                  <td>
+                  <td className="title">
                     <Link to={`/work/${w.slug}`}>{w.title}</Link>
                     {w.titleTranslation && <span className="dim block">{w.titleTranslation}</span>}
                   </td>
-                  <td>{w.year}</td>
-                  <td>
+                  <td className="fact">{w.year}</td>
+                  <td className="fact">
                     <Ph>{w.medium}</Ph>
                   </td>
-                  <td>
+                  <td className="fact">
                     <Ph>{w.dimensions}</Ph>
                   </td>
                   <td className="status">

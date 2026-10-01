@@ -7,7 +7,6 @@ import { Art } from '../components/Art'
 import { ratio } from '../content/images'
 import { Piece, Wall } from '../components/Wall'
 import { Reveal } from '../components/Reveal'
-import { LabelPreview } from '../components/LabelPreview'
 
 const YEARS = artworks.flatMap((a) => (a.year ? [a.year] : []))
 const SPAN = `${Math.min(...YEARS)}–${Math.max(...YEARS)}`
@@ -55,9 +54,6 @@ export function Home() {
         </div>
       </section>
 
-      {/* TEMPORARY: label comparison */}
-      <LabelPreview />
-
       <section id="works" className="works" aria-labelledby="works-title">
         <header className="works-head">
           <h2 id="works-title" className="voice works-title">
@@ -76,9 +72,9 @@ export function Home() {
       </section>
 
       <section className="coda">
-        <Reveal className="coda-portrait">
+        <Reveal className="coda-snapshot">
           <Link to="/about" tabIndex={-1} aria-hidden="true">
-            <Art file={artist.portrait.file} alt="" sizes="(max-width: 760px) 40vw, 18vw" />
+            <Art file={artist.snapshot.file} alt="" sizes="(max-width: 760px) 34vw, 15vw" />
           </Link>
         </Reveal>
         <Reveal className="coda-text" delay={0.1}>

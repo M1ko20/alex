@@ -8,9 +8,10 @@
 
    Type, three voices:
      display  Pinyon Script       her name and the page titles, large only
-     voice    Instrument Serif    italic: titles of works, her words, asides
-     text     Instrument Sans     everything you read or click; small caps-style
-                                  labels (.micro) for numbers, years, facts
+     voice    Instrument Serif    italic: her words, asides, the title on a work's page
+     text     Instrument Sans     everything you read or click; semibold for the
+                                  titles on labels and the phone menu; small
+                                  caps-style labels for numbers, years, facts
    ========================================================================== */
 
 :root {
@@ -180,12 +181,9 @@ h3 {
   color: var(--ink-3);
 }
 
-/* Her voice: her own words, short asides, a hello — and the titles of works. */
+/* Her voice: her own words, short asides, a hello — and the title on a work's own page. */
 .voice,
-.label-title,
 .work-title,
-.pager-title,
-.checklist td a,
 .form-done-title {
   font-family: var(--font-voice);
   font-style: italic;
@@ -195,6 +193,17 @@ h3 {
 
 .voice {
   line-height: 1.2;
+}
+
+/* A title on a label, in a list, in the menu: the text face, properly bold. */
+.label-title,
+.pager-title,
+.checklist td a,
+.menu > a {
+  font-family: var(--font-text);
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .arrow-link {
@@ -366,17 +375,16 @@ h3 {
 }
 
 .menu > a {
-  font-family: var(--font-voice);
-  font-style: italic;
-  font-size: clamp(2.5rem, 12vw, 3.8rem);
-  line-height: 1.16;
+  font-size: clamp(1.7rem, 8vw, 2.3rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 .menu > a {
   display: flex;
   align-items: baseline;
   gap: 16px;
-  padding: 6px 0;
+  padding: 14px 0;
   border-bottom: 1px solid var(--rule);
   counter-increment: menu;
 }
@@ -385,7 +393,6 @@ h3 {
   content: counter(menu, decimal-leading-zero);
   width: 2em;
   font-family: var(--font-text);
-  font-style: normal;
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.09em;
@@ -405,8 +412,6 @@ h3 {
 }
 
 .menu .menu-direct a {
-  font-family: var(--font-text);
-  font-style: normal;
   font-size: 15px;
   line-height: 1.5;
 }
@@ -653,9 +658,8 @@ main {
 
 .label-title {
   color: var(--ink);
-  font-size: 23px;
-  font-weight: 700;
-  line-height: 1.15;
+  font-size: 18px;
+  line-height: 1.25;
   text-wrap: balance;
   flex: 1 1 0;
   min-width: 0;
@@ -734,7 +738,17 @@ main {
   justify-content: center;
 }
 
-.coda-portrait .art {
+/* An instant photo pinned up beside the last words: a little askew, like everything pinned by hand. */
+.coda-snapshot {
+  rotate: -3.5deg;
+  transition: rotate 0.6s var(--ease);
+}
+
+.coda-snapshot:hover {
+  rotate: -1deg;
+}
+
+.coda-snapshot .art {
   box-shadow: var(--hang-shadow);
 }
 
@@ -1117,8 +1131,8 @@ main {
 }
 
 .pager-title {
-  font-size: 18px;
-  line-height: 1.2;
+  font-size: 16px;
+  line-height: 1.25;
 }
 
 .pager-link:hover .pager-title {
@@ -1287,8 +1301,8 @@ main {
 
 .checklist td a {
   text-decoration: none;
-  font-size: 18px;
-  line-height: 1.2;
+  font-size: 15.5px;
+  line-height: 1.25;
 }
 
 .checklist td a:hover {

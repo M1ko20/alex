@@ -19,9 +19,9 @@ npm run build      # production build → /dist
   the wall ends with the way to the about page and to writing to her. Navigation: Works, Available,
   About, Contact.
 - **Three voices of type.** *Pinyon Script* for her name and the page titles (large sizes only).
-  *Instrument Serif* italic for the titles of works, her own words and short asides. *Instrument
-  Sans* for everything else, with small tracked capitals for the facts on a label (number, year,
-  medium).
+  *Instrument Serif* italic for her own words, short asides and the title on a work's own page.
+  *Instrument Sans* for everything else: semibold for the titles on wall labels and in the phone
+  menu, small tracked capitals for the facts on a label (number, year, medium).
 - **A salon hang, not a grid.** The works hang edge to edge in rows of equal height that fill the
   width, so the paintings are big and there's no dead wall. Rows are chosen together
   (`src/components/Wall.tsx`) so each lands near a comfortable height. Rows with a lead work aim

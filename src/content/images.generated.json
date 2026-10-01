@@ -167,6 +167,23 @@
     "wall": "#ab9a83",
     "accent": "#856948"
   },
+  "artist/instax.jpg": {
+    "width": 740,
+    "height": 1177,
+    "srcset": [
+      {
+        "w": 640,
+        "src": "/img/artist/instax-640.webp"
+      },
+      {
+        "w": 740,
+        "src": "/img/artist/instax-740.webp"
+      }
+    ],
+    "placeholder": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAAAwBQCdASoUACAAPuFeqk2opaQiMAwBEBwJYwC+SCHfttALo3rRQAkvTzTRPfFZnM6ngAD+5/poMrT3+fCrLU+fLuk20Xy5BgG/LEC+tbO8NMoyXKv/aDhM1kbfC9P9BozTCcPv2vUTiJabZsd+p5zdvbr1shmjs6WBQpWhJ85ai3jLregAAA==",
+    "wall": "#817e77",
+    "accent": "#764d28"
+  },
   "artist/portrait-exhibition.jpg": {
     "width": 3072,
     "height": 4096,
@@ -191,6 +208,31 @@
     "placeholder": "data:image/webp;base64,UklGRnYAAABXRUJQVlA4IGoAAADQBACdASoUABsAPu1gp02ppSOiMAgBMB2JQBadA7bngI0VPy4ZZgzqY3wlkAnfwAD+1DcTZsnPWAzCkpd7vwgvwKEloPPIYfF6JsNTAqN5t3o0aIxF5VBRjYn283rTHEcWJMPRGY3lLLAA",
     "wall": "#a69276",
     "accent": "#a07d50"
+  },
+  "artist/portrait.jpg": {
+    "width": 2480,
+    "height": 3308,
+    "srcset": [
+      {
+        "w": 640,
+        "src": "/img/artist/portrait-640.webp"
+      },
+      {
+        "w": 1200,
+        "src": "/img/artist/portrait-1200.webp"
+      },
+      {
+        "w": 2000,
+        "src": "/img/artist/portrait-2000.webp"
+      },
+      {
+        "w": 2480,
+        "src": "/img/artist/portrait-2480.webp"
+      }
+    ],
+    "placeholder": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAABQBQCdASoUABsAPu1mq04ppaQiMAgBMB2JZQDKABcL/JNAVt6kpDXaWioNfjYAJoiJI4AA/Nkf4kIrRN1zFImck2PZTln4syeOPUEpL0Mw9NtUKTCLUyD9dj+B2m5Y0dWYMOU9UkXcIe3AmWi9WQCr2adEO4gA",
+    "wall": "#898482",
+    "accent": "#885d52"
   },
   "flowers/01-work.jpg": {
     "width": 1336,
@@ -403,8 +445,8 @@
     "accent": "#b01c2c"
   },
   "knight/01-work.jpg": {
-    "width": 1440,
-    "height": 1063,
+    "width": 3226,
+    "height": 2480,
     "srcset": [
       {
         "w": 640,
@@ -415,13 +457,42 @@
         "src": "/img/knight/01-work-1200.webp"
       },
       {
-        "w": 1440,
-        "src": "/img/knight/01-work-1440.webp"
+        "w": 2000,
+        "src": "/img/knight/01-work-2000.webp"
+      },
+      {
+        "w": 2800,
+        "src": "/img/knight/01-work-2800.webp"
       }
     ],
-    "placeholder": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAACwAwCdASoUAA8APu1kqU2ppaQiMAgBMB2JYwCdAAkxMh4/UxT44ADvNHdbOoVFyRcdpYf8Yk6BCDT/e2QIO7jh2ROZAPquKvV5kKu5HQAAAA==",
-    "wall": "#595554",
-    "accent": "#d2a16c"
+    "placeholder": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAAAQBACdASoUAA8APu1kqU2ppaQiMAgBMB2JZQDLLCFUnHG8Dw20dZ1/AAD+fbecaVC4W6/S80/zUO1m1Kva397Gg4Fkh1fGurqHIAAA",
+    "wall": "#626365",
+    "accent": "#37516d"
+  },
+  "mirage/01-work.jpg": {
+    "width": 2963,
+    "height": 2480,
+    "srcset": [
+      {
+        "w": 640,
+        "src": "/img/mirage/01-work-640.webp"
+      },
+      {
+        "w": 1200,
+        "src": "/img/mirage/01-work-1200.webp"
+      },
+      {
+        "w": 2000,
+        "src": "/img/mirage/01-work-2000.webp"
+      },
+      {
+        "w": 2800,
+        "src": "/img/mirage/01-work-2800.webp"
+      }
+    ],
+    "placeholder": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAABwBACdASoUABEAPu1srlCppiQiqAqpMB2JYwCdMoSEIBTjgYDRT4SYs4FwAAD+g9cE3f0pd69YR1j2ZEPNszoVaYXDFGDPL6T9ox5fjUFPmtsd+EfpqZa6M7FhAAAA",
+    "wall": "#947a5f",
+    "accent": "#8e6844"
   },
   "positive-abstraction/01-work.jpg": {
     "width": 1395,

@@ -29,10 +29,15 @@ export const artist = {
   intro:
     'I paint in acrylic and build collages from the things that stay with me — tickets, wristbands, pressed flowers, pearls, handwriting. A lot of what I make is made for someone.',
 
-  /** Portrait used on the home and About pages. */
+  /** Portrait used on the About page. */
   portrait: {
-    file: 'artist/portrait-exhibition.jpg',
-    alt: 'Alexandra Tomanová smiling in a red dress, holding an illustrated book with a yellow cover, framed illustrations on the wall behind her.',
+    file: 'artist/portrait.jpg',
+    alt: 'Alexandra Tomanová in a black dress, looking back over her shoulder in a sunlit cloister of white columns and interlaced arches, palms and clipped hedges behind her.',
+  },
+
+  /** An instant photo, pinned up at the end of the wall of works. Atmosphere only. */
+  snapshot: {
+    file: 'artist/instax.jpg',
   },
 
   bio: [

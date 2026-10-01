@@ -163,11 +163,29 @@ export const artworks: Artwork[] = [
       {
         file: 'knight/01-work.jpg',
         kind: 'work',
-        alt: 'A figure in a riveted great helm against a blue and brick-red wall, one ringed hand raised to the visor, the other holding a lit candle that throws warm light.',
+        alt: 'A figure in a riveted great helm against a blue and brick-red wall, one ringed hand raised to the visor, the other holding a lit candle that throws warm light, in an ornate dark frame.',
       },
     ],
     description: TBC_DESCRIPTION,
     instagram: 'https://www.instagram.com/p/DVTOlI8jBiy/',
+  },
+  {
+    slug: 'mirage',
+    title: 'Untitled (Mirage)',
+    workingTitle: true,
+    year: null,
+    medium: '[Medium]',
+    dimensions: '[Dimensions]',
+    availability: 'unknown',
+    presence: 'standard',
+    images: [
+      {
+        file: 'mirage/01-work.jpg',
+        kind: 'work',
+        alt: 'A sunlit sandstone courtyard with stacked crates, palm trees and two pale towers against a blue sky, a red sprayed mark on the ground, in an ornate dark gold frame.',
+      },
+    ],
+    description: TBC_DESCRIPTION,
   },
   {
     slug: 'water-lilies',

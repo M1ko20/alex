@@ -1,13 +1,12 @@
 import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
-import { artworks, findWork } from '../content/artworks'
+import { findWork } from '../content/artworks'
 import { artist, projects } from '../content/site'
 import { ratio } from '../content/images'
 import { useTitle } from '../lib/room'
 import { Art } from '../components/Art'
 import { Ph } from '../components/Ph'
 import { Reveal } from '../components/Reveal'
-import { Note, tiltFor } from '../components/Note'
 
 /** Photos from the works' own posts that show the studio side of things. */
 const STUDIO = [
@@ -18,35 +17,18 @@ const STUDIO = [
 
 export function About() {
   useTitle('About me')
-  const quoted = artworks.filter((a) => a.words?.lang === 'en')
 
-  // Photos and notes pinned up together, alternating, like a studio wall.
-  const pinned = STUDIO.flatMap((s, i) => {
+  const studio = STUDIO.map((s) => {
     const work = findWork(s.work)!
     const img = work.images.find((im) => im.file === s.file)!
-    const photo = (
-      <Reveal key={s.file} className="pin pin-photo" style={{ '--r': ratio(s.file) } as CSSProperties} delay={0.05}>
+    return (
+      <Reveal key={s.file} className="pin-photo" style={{ '--r': ratio(s.file) } as CSSProperties} delay={0.05}>
         <Art file={s.file} alt={img.alt} sizes="(max-width: 760px) 80vw, 30vw" />
         <p className="caption">
           {img.caption} — <Link to={`/work/${work.slug}`}>{work.title}</Link>
         </p>
       </Reveal>
     )
-    const q = quoted[i]
-    const note = q && (
-      <Reveal key={q.slug} className="pin pin-note" delay={0.15}>
-        <Note
-          words={q.words!}
-          tilt={tiltFor(q.slug)}
-          source={
-            <>
-              on <Link to={`/work/${q.slug}`}>{q.title}</Link>
-            </>
-          }
-        />
-      </Reveal>
-    )
-    return note ? [photo, note] : [photo]
   })
 
   return (
@@ -56,7 +38,7 @@ export function About() {
           <Art file={artist.portrait.file} alt={artist.portrait.alt} eager sizes="(max-width: 760px) 92vw, 34vw" />
         </Reveal>
         <div className="about-bio">
-          <p className="hand page-hand">
+          <p className="voice page-aside">
             {artist.hello} {artist.firstName} —
           </p>
           <h1 className="page-title">About me</h1>
@@ -94,10 +76,10 @@ export function About() {
       </section>
 
       <section className="pinboard" aria-labelledby="pinboard-title">
-        <h2 id="pinboard-title" className="hand pinboard-title">
-          around the work
+        <h2 id="pinboard-title" className="voice pinboard-title">
+          In the studio
         </h2>
-        <div className="pinboard-grid">{pinned}</div>
+        <div className="pinboard-grid">{studio}</div>
       </section>
 
       {projects.map((p) => (
@@ -108,7 +90,7 @@ export function About() {
               <h2 id={`${p.slug}-title`} className="project-title">
                 {p.title}
               </h2>
-              {p.titleTranslation && <p className="hand project-translation">{p.titleTranslation}</p>}
+              {p.titleTranslation && <p className="voice project-translation">{p.titleTranslation}</p>}
             </div>
             <div>
               <p className="project-kind">{p.kind}</p>

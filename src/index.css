@@ -3,9 +3,14 @@
 
    One warm wall colour, one ink colour, and scraps of paper. The only other
    colour on the site comes from the paintings themselves (see lib/room.ts):
-   the room takes on a little of whatever you are looking at. Her own words
-   are written out by hand on slips taped to the wall, the way her collages
-   keep tickets, notes and handwriting.
+   the room takes on a little of whatever you are looking at. Nothing sits
+   between a visitor and a painting except its label.
+
+   Type, three voices:
+     display  Pinyon Script       her name and the page titles, large only
+     voice    Instrument Serif    italic: titles of works, her words, asides
+     text     Instrument Sans     everything you read or click; small caps-style
+                                  labels (.micro) for numbers, years, facts
    ========================================================================== */
 
 :root {
@@ -14,7 +19,6 @@
   --room-amount: 0%;
   --room: color-mix(in oklab, var(--wall), var(--room-tint) var(--room-amount));
   --paper: #fdfbf7;
-  --tape: rgb(226 212 180 / 0.72);
 
   --ink: #1f1a19;
   --ink-2: #5b5250;
@@ -22,9 +26,9 @@
   --rule: color-mix(in oklab, var(--ink) 14%, transparent);
   --rule-strong: color-mix(in oklab, var(--ink) 34%, transparent);
 
-  --font-display: 'Bricolage Grotesque Variable', 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Pinyon Script', 'Snell Roundhand', 'Apple Chancery', cursive;
+  --font-voice: 'Instrument Serif', 'Iowan Old Style', 'Times New Roman', serif;
   --font-text: 'Instrument Sans Variable', 'Helvetica Neue', Arial, sans-serif;
-  --font-hand: 'Caveat Variable', 'Bradley Hand', 'Segoe Print', cursive;
   --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace;
 
   --gutter: clamp(16px, 2.8vw, 40px);
@@ -36,7 +40,6 @@
 
   /* A painting hangs on the wall; it is not printed on it. */
   --hang-shadow: 0 1px 1px rgb(40 24 16 / 0.08), 0 16px 30px -20px rgb(40 24 16 / 0.5);
-  --slip-shadow: 0 1px 1px rgb(40 24 16 / 0.1), 0 10px 20px -12px rgb(40 24 16 / 0.35);
 
   color-scheme: light;
 }
@@ -159,20 +162,39 @@ h3 {
 }
 
 .section-label {
-  font-family: var(--font-text);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-3);
   margin: 0 0 1em;
 }
 
-/* Her handwriting voice: short asides, notes, a hello. */
-.hand {
-  font-family: var(--font-hand);
+/* The small print of a wall label: numbers, years, facts. */
+.section-label,
+.label-no,
+.label-meta,
+.work-no,
+.work-facts dt,
+.checklist th {
+  font-family: var(--font-text);
+  font-size: 11px;
   font-weight: 500;
-  line-height: 1.02;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* Her voice: her own words, short asides, a hello — and the titles of works. */
+.voice,
+.label-title,
+.work-title,
+.pager-title,
+.checklist td a,
+.form-done-title {
+  font-family: var(--font-voice);
+  font-style: italic;
+  font-weight: 400;
   letter-spacing: 0;
+}
+
+.voice {
+  line-height: 1.2;
 }
 
 .arrow-link {
@@ -222,79 +244,6 @@ h3 {
   opacity: 1;
 }
 
-/* ---------- A note on a scrap of paper ------------------------------------ */
-
-.note {
-  position: relative;
-  margin: 0;
-  transform: rotate(var(--tilt, 0deg));
-  transform-origin: 50% 0;
-}
-
-.note-slip {
-  position: relative;
-  padding: 1em 1.1em 1.15em;
-  background: var(--paper);
-  box-shadow: var(--slip-shadow);
-  /* a torn bottom edge */
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    100% 94%,
-    93% 100%,
-    84% 95%,
-    72% 99%,
-    61% 94%,
-    49% 100%,
-    37% 95%,
-    26% 99%,
-    14% 94%,
-    6% 99%,
-    0 95%
-  );
-}
-
-/* a strip of masking tape holding it up */
-.note::before {
-  content: '';
-  position: absolute;
-  z-index: 1;
-  top: -11px;
-  left: 50%;
-  width: min(76px, 36%);
-  height: 22px;
-  background: var(--tape);
-  transform: translateX(-50%) rotate(calc(var(--tilt, 0deg) * -1.6 - 2deg));
-  box-shadow: 0 1px 1px rgb(40 24 16 / 0.06);
-}
-
-.note blockquote {
-  margin: 0;
-  font-size: 1.6rem;
-  color: var(--ink);
-  overflow-wrap: break-word;
-}
-
-.note blockquote p {
-  margin: 0;
-}
-
-.note figcaption {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  margin-top: 10px;
-  padding: 0 0.3em;
-  font-size: 12.5px;
-  line-height: 1.4;
-  color: var(--ink-3);
-}
-
-.note-translation {
-  color: var(--ink-2);
-  font-style: italic;
-}
-
 /* ---------- Header --------------------------------------------------------- */
 
 .site-header {
@@ -325,23 +274,47 @@ h3 {
 }
 
 .wordmark {
-  font-family: var(--font-display);
-  font-size: 17px;
-  font-weight: 560;
-  font-variation-settings: 'wdth' 88;
-  letter-spacing: -0.01em;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .nav {
   display: flex;
-  gap: clamp(16px, 2.2vw, 36px);
-  font-size: 14.5px;
+  gap: clamp(20px, 2.6vw, 40px);
+}
+
+.nav a,
+.menu-toggle {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .nav a {
+  position: relative;
+  padding: 4px 0;
   color: var(--ink-2);
   text-decoration: none;
+  transition: color 0.25s;
+}
+
+.nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  /* the tracking leaves a gap after the last letter; the line stops with the word */
+  right: 0.12em;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.35s var(--ease);
 }
 
 .nav a:hover,
@@ -349,19 +322,28 @@ h3 {
   color: var(--ink);
 }
 
-.nav a.active {
-  text-decoration: underline wavy;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.45em;
-  text-decoration-color: var(--ink-2);
+.nav a:hover::after,
+.nav a.active::after {
+  transform: scaleX(1);
+}
+
+.nav-count {
+  position: absolute;
+  left: 100%;
+  top: -0.2em;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: var(--ink-3);
+  line-height: 1;
 }
 
 .menu-toggle {
   display: none;
   background: none;
   border: 0;
-  padding: 4px 0;
-  font-size: 14.5px;
+  /* a comfortable target for a thumb */
+  margin: -10px 0;
+  padding: 14px 0 14px 20px;
   cursor: pointer;
 }
 
@@ -376,28 +358,57 @@ h3 {
   flex-direction: column;
   gap: 2px;
   overflow-y: auto;
+  counter-reset: menu;
 }
 
 .menu a {
-  font-family: var(--font-display);
-  font-size: clamp(2.6rem, 13vw, 4.2rem);
-  font-weight: 520;
-  font-variation-settings: 'wdth' 78;
-  letter-spacing: -0.035em;
-  line-height: 1.05;
   text-decoration: none;
 }
 
-.menu a.active {
+.menu > a {
+  font-family: var(--font-voice);
+  font-style: italic;
+  font-size: clamp(2.5rem, 12vw, 3.8rem);
+  line-height: 1.16;
+}
+
+.menu > a {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--rule);
+  counter-increment: menu;
+}
+
+.menu > a::before {
+  content: counter(menu, decimal-leading-zero);
+  width: 2em;
+  font-family: var(--font-text);
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
   color: var(--ink-3);
 }
 
-.menu .menu-ig {
-  margin-top: auto;
-  padding-top: 24px;
+.menu > a.active {
+  color: var(--ink-3);
+}
+
+.menu-direct {
+  margin: auto 0 0;
+  padding-top: 28px;
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+}
+
+.menu .menu-direct a {
   font-family: var(--font-text);
+  font-style: normal;
   font-size: 15px;
-  letter-spacing: 0;
+  line-height: 1.5;
 }
 
 /* ---------- Footer --------------------------------------------------------- */
@@ -419,9 +430,9 @@ h3 {
 }
 
 .footer-name {
-  grid-row: span 2;
+  grid-row: span 3;
   margin: 0;
-  font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+  font-size: clamp(1.35rem, 1.9vw, 1.7rem);
 }
 
 .footer-links {
@@ -439,6 +450,13 @@ h3 {
 
 .footer-links a:hover {
   text-decoration: underline;
+}
+
+.footer-nav a {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .footer-small {
@@ -463,7 +481,7 @@ main {
   column-gap: clamp(24px, 3vw, 48px);
   max-width: var(--max);
   margin: 0 auto;
-  padding: 4px var(--gutter) 0;
+  padding: 8px var(--gutter) 0;
 }
 
 .hero-head {
@@ -473,22 +491,22 @@ main {
   z-index: 3;
 }
 
-.hero-hello {
-  margin: 0 0 -0.12em 0.08em;
-  font-size: clamp(1.9rem, 3.2vw, 3rem);
-  transform: rotate(-4deg);
-  transform-origin: 0 100%;
-  display: inline-block;
+.hero-eyebrow {
+  display: flex;
+  gap: 1.6em;
+  margin: 0.4em 0 2.2em;
+  color: var(--ink-2);
+}
+
+.hero-eyebrow span + span {
+  color: var(--ink-3);
 }
 
 .hero-name {
   font-family: var(--font-display);
-  font-size: clamp(3.4rem, min(11.2vw, 19svh), 13.5rem);
-  font-weight: 560;
-  font-variation-settings: 'wdth' 78;
-  letter-spacing: -0.032em;
-  line-height: 0.82;
-  margin-left: -0.04em;
+  font-size: clamp(4rem, min(10.6vw, 20svh), 13.5rem);
+  font-weight: 400;
+  line-height: 0.9;
 }
 
 .hero-name span {
@@ -511,42 +529,76 @@ main {
   box-shadow: var(--hang-shadow);
 }
 
-.hero-note {
-  position: absolute;
-  z-index: 2;
-  right: calc(100% - 56px);
-  top: 42%;
-  width: clamp(240px, 22vw, 330px);
-}
-
-.hero-note blockquote {
-  font-size: clamp(1.35rem, 1.75vw, 1.75rem);
-}
-
 .hero-text {
   grid-column: 1;
   grid-row: 3;
   align-self: end;
-  padding-bottom: 76px;
-  max-width: 36ch;
+  padding-bottom: 64px;
+  max-width: 38ch;
 }
 
 .hero-intro {
   font-size: clamp(1.05rem, 1.3vw, 1.25rem);
   line-height: 1.45;
-  margin-bottom: 0.9em;
+  margin: 0;
 }
 
-.hero-facts {
+.hero-actions,
+.coda-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 18px;
+  align-items: center;
+  gap: 14px 28px;
   margin: 0;
+  font-size: 14.5px;
+}
+
+.hero-actions {
+  margin-top: 1.6em;
+}
+
+/* ---------- Home: the works ------------------------------------------------ */
+
+.works {
+  scroll-margin-top: 8px;
+  padding-top: clamp(48px, 7vw, 104px);
+}
+
+.works-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px clamp(16px, 2vw, 28px);
+  flex-wrap: wrap;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter) 14px;
   font-size: 14px;
 }
 
-.hero-facts a {
-  text-decoration-color: var(--rule-strong);
+.works-head::after {
+  content: '';
+  order: 3;
+  flex: 1 0 100%;
+  height: 1px;
+  margin-top: 6px;
+  background: var(--rule);
+}
+
+.works-title {
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  line-height: 1;
+}
+
+.works-head .section-label {
+  margin: 0;
+}
+
+.works-head .arrow-link {
+  margin-left: auto;
+}
+
+.works .wall {
+  margin-top: clamp(14px, 1.6vw, 24px);
 }
 
 /* ---------- The wall (salon hang) ----------------------------------------- */
@@ -570,42 +622,6 @@ main {
   min-width: 0;
 }
 
-.wall-note {
-  flex: 0 1 auto;
-  min-width: 0;
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-  padding: 0 2% 60px;
-  container-type: inline-size;
-}
-
-.wall-row > .wall-note:nth-child(4n + 2) {
-  align-items: flex-start;
-  padding-top: 12%;
-}
-
-.wall-row > .wall-note:last-child {
-  align-items: flex-end;
-}
-
-.wall-note .note {
-  width: 100%;
-}
-
-.wall-note .note blockquote {
-  font-size: clamp(1.25rem, 10.5cqi, 2.1rem);
-}
-
-.note.is-under {
-  width: min(88%, 340px);
-  margin: 16px 0 6px auto;
-}
-
-.note.is-under blockquote {
-  font-size: 1.45rem;
-}
-
 .piece {
   display: block;
   text-decoration: none;
@@ -623,33 +639,38 @@ main {
   text-underline-offset: 0.22em;
 }
 
+/* A wall label: the title in her voice, the number opposite, the facts in small print below. */
 .label {
   display: grid;
-  grid-template-columns: 2em 1fr;
-  gap: 0 0.4em;
-  margin-top: 10px;
-  font-size: 13px;
-  line-height: 1.4;
-}
-
-.label-no {
-  color: var(--ink-3);
-  font-variant-numeric: tabular-nums;
-}
-
-.label-text {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 3px 14px;
+  align-items: baseline;
+  margin-top: 12px;
 }
 
 .label-title {
   color: var(--ink);
-  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.label-no {
+  font-variant-numeric: tabular-nums;
 }
 
 .label-meta {
-  color: var(--ink-2);
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.55em;
+  line-height: 1.5;
+}
+
+.label-meta > * + *:not(.label-status)::before {
+  content: '·';
+  margin-right: 0.55em;
+  color: var(--ink-3);
 }
 
 .label-status,
@@ -672,8 +693,8 @@ main {
   border: 1.25px solid currentColor;
 }
 
-.label-status {
-  margin-top: 1px;
+.label-status:not(:first-child) {
+  margin-left: 0.4em;
 }
 
 /* Phones: one walk down the wall. */
@@ -701,18 +722,17 @@ main {
 
 .coda-portrait .art {
   box-shadow: var(--hang-shadow);
-  transform: rotate(-1.5deg);
 }
 
-.coda-hand {
-  font-size: clamp(1.9rem, 3vw, 2.6rem);
-  margin: 0 0 0.3em;
+.coda-aside {
+  font-size: clamp(1.5rem, 2.1vw, 1.9rem);
+  margin: 0 0 0.4em;
 }
 
 .coda-lede {
   font-size: clamp(1.05rem, 1.4vw, 1.25rem);
   line-height: 1.45;
-  margin: 0;
+  margin: 0 0 1.2em;
 }
 
 /* ---------- A work --------------------------------------------------------- */
@@ -835,38 +855,36 @@ main {
   margin-top: 16px;
 }
 
-.is-wide .work-label > .work-note-slip {
+.is-wide .work-label > .work-words {
   grid-column: 3;
   grid-row: 1 / span 6;
   margin-top: 0;
 }
 
 .work-no {
-  color: var(--ink-3);
-  font-size: 13px;
   font-variant-numeric: tabular-nums;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.9em;
 }
 
-.work-title,
+/* The script is for her name and the big page titles only; it never goes small. */
 .page-title,
 .project-title {
   font-family: var(--font-display);
-  font-weight: 560;
-  font-variation-settings: 'wdth' 78;
-  letter-spacing: -0.04em;
-  line-height: 0.92;
+  font-weight: 400;
+  line-height: 1;
   text-wrap: balance;
 }
 
 .work-title {
-  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-size: clamp(2.2rem, 3.3vw, 3.2rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
 }
 
 .work-translation {
-  margin: 0.4em 0 0;
+  margin: 0.6em 0 0;
   color: var(--ink-2);
-  font-style: italic;
 }
 
 .work-note {
@@ -886,8 +904,8 @@ main {
   gap: 12px;
 }
 
-.work-facts dt {
-  color: var(--ink-3);
+.work-facts div {
+  align-items: baseline;
 }
 
 .work-facts dd {
@@ -923,10 +941,21 @@ main {
     color 0.25s;
 }
 
+.button {
+  text-decoration: none;
+  line-height: 1.3;
+}
+
 .button:hover:not(:disabled),
-.button.is-active {
+.button.is-active,
+.button.is-solid {
   background: var(--ink);
   color: var(--wall);
+}
+
+.button.is-solid:hover {
+  background: transparent;
+  color: var(--ink);
 }
 
 .button:disabled {
@@ -942,13 +971,45 @@ main {
   padding-top: 22px;
 }
 
-.work-note-slip {
-  margin-top: 30px;
-  max-width: 340px;
+/* Her own words about a work: a quiet quotation, part of the label. */
+.work-words {
+  margin: 24px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+  max-width: 400px;
 }
 
-.work-note-slip blockquote {
-  font-size: clamp(1.4rem, 1.7vw, 1.75rem);
+.work-words blockquote {
+  margin: 0;
+  font-size: clamp(1.2rem, 1.4vw, 1.4rem);
+  line-height: 1.28;
+  color: var(--ink);
+  overflow-wrap: break-word;
+}
+
+.work-words blockquote p {
+  margin: 0;
+}
+
+.work-words blockquote p:first-child::before {
+  content: '“';
+}
+
+.work-words blockquote p:last-child::after {
+  content: '”';
+}
+
+.work-words figcaption {
+  display: grid;
+  gap: 2px;
+  margin-top: 10px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+
+.work-words-translation {
+  color: var(--ink-2);
 }
 
 /* Closer: details, studio photos, the source photo */
@@ -961,10 +1022,8 @@ main {
 }
 
 .work-more-title {
-  font-size: clamp(2rem, 3vw, 2.8rem);
-  margin-bottom: 0.35em;
-  transform: rotate(-2deg);
-  transform-origin: 0 100%;
+  font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+  margin-bottom: 0.5em;
 }
 
 .work-description {
@@ -1044,7 +1103,8 @@ main {
 }
 
 .pager-title {
-  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.2;
 }
 
 .pager-link:hover .pager-title {
@@ -1142,26 +1202,24 @@ main {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   grid-template-areas:
-    'hand .'
+    'aside .'
     'title intro';
   gap: 0 var(--col-gap);
   align-items: end;
   margin-bottom: clamp(28px, 4vw, 56px);
 }
 
-.page-hand {
-  grid-area: hand;
-  font-size: clamp(1.8rem, 3vw, 2.8rem);
-  margin: 0 0 0.1em 0.1em;
-  transform: rotate(-3deg);
-  transform-origin: 0 100%;
+.page-aside {
+  grid-area: aside;
+  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  color: var(--ink-2);
+  margin: 0.6em 0 0.2em 0.1em;
   justify-self: start;
 }
 
 .page-title {
   grid-area: title;
-  font-size: clamp(3rem, 8.5vw, 8.5rem);
-  line-height: 0.84;
+  font-size: clamp(3.6rem, 9vw, 9rem);
 }
 
 .page-intro {
@@ -1187,10 +1245,8 @@ main {
 }
 
 .checklist-title {
-  font-size: clamp(2rem, 3.2vw, 3rem);
-  margin-bottom: 0.4em;
-  transform: rotate(-1.5deg);
-  transform-origin: 0 100%;
+  font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+  margin-bottom: 0.7em;
 }
 
 .checklist-scroll {
@@ -1205,9 +1261,6 @@ main {
 
 .checklist th {
   text-align: left;
-  font-weight: 400;
-  font-size: 12px;
-  color: var(--ink-3);
   padding: 0 16px 10px 0;
   border-bottom: 1px solid var(--rule-strong);
 }
@@ -1220,7 +1273,8 @@ main {
 
 .checklist td a {
   text-decoration: none;
-  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.2;
 }
 
 .checklist td a:hover {
@@ -1281,7 +1335,7 @@ main {
   align-content: start;
 }
 
-.about-bio .page-hand {
+.about-bio .page-aside {
   grid-area: auto;
 }
 
@@ -1322,21 +1376,14 @@ main {
   margin-top: var(--space);
 }
 
-.pinboard-title,
-.project-translation {
-  font-size: clamp(2rem, 3.2vw, 3rem);
-  transform: rotate(-2deg);
-  transform-origin: 0 100%;
-}
-
 .pinboard-title {
-  margin-bottom: 0.5em;
+  font-size: clamp(1.6rem, 2.2vw, 2.1rem);
+  margin-bottom: 0.7em;
 }
 
 .pinboard-grid {
   --strip-gap: clamp(16px, 2.4vw, 36px);
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
 }
 
 .pin-photo {
@@ -1347,24 +1394,6 @@ main {
 
 .pin-photo .art {
   box-shadow: var(--hang-shadow);
-}
-
-.pin-photo:nth-child(4n + 1) .art {
-  transform: rotate(-1deg);
-}
-
-.pin-photo:nth-child(4n + 3) .art {
-  transform: rotate(0.8deg);
-}
-
-.pin-note {
-  flex: 1 1 220px;
-  max-width: 300px;
-  padding-top: 12px;
-}
-
-.pin-note blockquote {
-  font-size: clamp(1.4rem, 1.8vw, 1.8rem);
 }
 
 .project {
@@ -1384,13 +1413,13 @@ main {
 }
 
 .project-translation {
-  margin: 0.2em 0 0;
-  display: inline-block;
+  margin: 0.3em 0 0 0.1em;
+  font-size: clamp(1.15rem, 1.6vw, 1.5rem);
+  color: var(--ink-2);
 }
 
 .project-title {
-  font-size: clamp(2.6rem, 6vw, 6rem);
-  line-height: 0.86;
+  font-size: clamp(3.2rem, 6.6vw, 6.6rem);
 }
 
 .project-kind {
@@ -1424,15 +1453,7 @@ main {
 
 .contact-direct p {
   margin: 0 0 0.3em;
-}
-
-.contact-note {
-  width: min(100%, 280px);
-  margin-top: 12px;
-}
-
-.contact-note blockquote {
-  font-size: 2rem;
+  overflow-wrap: anywhere;
 }
 
 .inquiry {
@@ -1538,10 +1559,8 @@ main {
 }
 
 .form-done-title {
-  font-family: var(--font-hand);
-  font-size: 2rem;
-  font-weight: 500;
-  line-height: 1.05;
+  font-size: 1.8rem;
+  line-height: 1.15;
   margin-bottom: 0.3em;
 }
 
@@ -1560,7 +1579,7 @@ main {
 /* Portrait tablets: the name above, the painting below it. */
 @media (max-width: 1080px) and (max-aspect-ratio: 1/1) {
   .hero {
-    --hero-h: min(66svh, 900px);
+    --hero-h: min(54svh, 900px);
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: none;
   }
@@ -1573,19 +1592,13 @@ main {
   }
 
   .hero-name {
-    font-size: clamp(3.4rem, 14.5vw, 9rem);
+    font-size: clamp(4rem, 17vw, 10.5rem);
   }
 
   .hero-work {
     justify-self: end;
     width: min(100%, calc(var(--hero-h) * var(--r)));
     margin-top: -0.6em;
-  }
-
-  .hero-note {
-    top: auto;
-    bottom: 22%;
-    width: clamp(220px, 34vw, 300px);
   }
 
   .hero-text {
@@ -1636,12 +1649,12 @@ main {
     margin-top: 12px;
   }
 
-  .work-label > .work-note-slip {
+  .work-label > .work-words {
     grid-row: 5 / span 3;
     margin-top: 28px;
   }
 
-  .is-wide .work-label > .work-note-slip {
+  .is-wide .work-label > .work-words {
     grid-column: 1;
     grid-row: 5 / span 3;
     margin-top: 28px;
@@ -1707,21 +1720,13 @@ main {
   }
 
   .hero-name {
-    font-size: clamp(2.9rem, 16.5vw, 6rem);
+    font-size: clamp(3.6rem, 21vw, 7rem);
   }
 
   .hero-work {
     justify-self: start;
     width: min(100%, calc(var(--hero-h) * var(--r)));
     margin-top: 12px;
-  }
-
-  .hero-note {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    width: min(88%, 330px);
-    margin: 18px 0 0 auto;
   }
 
   .hero-work .label {
@@ -1732,8 +1737,20 @@ main {
     padding-top: 22px;
   }
 
-  .wall {
-    margin-top: 48px;
+  .hero-eyebrow {
+    margin-bottom: 1.4em;
+  }
+
+  .hero-actions {
+    margin-top: 1.3em;
+  }
+
+  .works-head .arrow-link {
+    margin-left: 0;
+    flex-basis: 100%;
+    order: 4;
+    border: 0;
+    margin-top: 10px;
   }
 
   .coda {
@@ -1758,11 +1775,6 @@ main {
     margin-top: 20px;
   }
 
-  .work-note-slip {
-    width: min(92%, 340px);
-    margin: 32px 0 0 auto;
-  }
-
   .work-more-cell,
   .project-image {
     --cell-h: 150px;
@@ -1778,13 +1790,13 @@ main {
   .page-head {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
-      'hand'
+      'aside'
       'title'
       'intro';
   }
 
   .page-title {
-    font-size: clamp(2.9rem, 15vw, 5rem);
+    font-size: clamp(3.4rem, 18vw, 5.6rem);
     margin-bottom: 0.25em;
   }
 
@@ -1801,11 +1813,6 @@ main {
     --cell-h: 260px;
     flex-basis: 100%;
     max-width: 100%;
-  }
-
-  .pin-note {
-    max-width: 88%;
-    margin-left: auto;
   }
 
   .project-head {
@@ -1840,12 +1847,5 @@ main {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-}
-
-/* Landscape phones: no room for a slip beside the painting (the quote is on the work's page). */
-@media (max-height: 520px) and (min-aspect-ratio: 1/1) {
-  .hero-note {
-    display: none;
   }
 }

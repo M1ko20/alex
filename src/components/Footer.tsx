@@ -8,7 +8,21 @@ export function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-grid">
-        <p className="footer-name hand">thank you for looking</p>
+        <p className="footer-name voice">Thank you for looking</p>
+        <ul className="footer-links footer-nav">
+          <li>
+            <Link to="/">Works</Link>
+          </li>
+          <li>
+            <Link to="/available">Available</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+          <li>
+            <Link to="/contact">Contact</Link>
+          </li>
+        </ul>
         <ul className="footer-links">
           <li>
             <a href={artist.instagram.url} target="_blank" rel="noreferrer">
@@ -21,9 +35,6 @@ export function Footer() {
             ) : (
               <a href={`mailto:${artist.email}`}>{artist.email}</a>
             )}
-          </li>
-          <li>
-            <Link to="/contact">Write to me →</Link>
           </li>
         </ul>
         <p className="footer-small">

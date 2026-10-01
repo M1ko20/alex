@@ -23,7 +23,7 @@ export function Available() {
   return (
     <div className="page available">
       <header className="page-head">
-        <p className="hand page-hand">still looking for a wall —</p>
+        <p className="voice page-aside">still looking for a wall —</p>
         <h1 className="page-title">Available</h1>
         <div className="page-intro">
           <p>
@@ -42,10 +42,10 @@ export function Available() {
         </div>
       </header>
 
-      <Wall works={works} notes={false} />
+      <Wall works={works} />
 
       <section className="checklist" aria-labelledby="checklist-title">
-        <h2 id="checklist-title" className="hand checklist-title">
+        <h2 id="checklist-title" className="voice checklist-title">
           everything, in one list
         </h2>
         <div className="checklist-scroll">

@@ -12,14 +12,20 @@ npm run build      # production build → /dist
 
 ## Creative direction, in short
 
-- **It's her studio wall, in her voice.** Everything is written in the first person, as Alexandra.
-  Her own captions are written out by hand on scraps of paper taped to the wall (Caveat, a
-  handwriting face), the way her collages keep tickets, notes and handwriting.
+- **A gallery, in her voice.** Everything is written in the first person, as Alexandra. Nothing
+  sits between a visitor and a painting except its label; her own caption for a work appears only
+  on that work's page, as a quiet quotation under the facts.
+- **One path through.** The home page opens on a featured work with one button down to the works;
+  the wall ends with the way to the about page and to writing to her. Navigation: Works, Available,
+  About, Contact.
+- **Three voices of type.** *Pinyon Script* for her name and the page titles (large sizes only).
+  *Instrument Serif* italic for the titles of works, her own words and short asides. *Instrument
+  Sans* for everything else, with small tracked capitals for the facts on a label (number, year,
+  medium).
 - **A salon hang, not a grid.** The works hang edge to edge in rows of equal height that fill the
   width, so the paintings are big and there's no dead wall. Rows are chosen together
   (`src/components/Wall.tsx`) so each lands near a comfortable height. Rows with a lead work aim
-  taller, quiet works a little smaller. Her notes take a place in the row on wide screens and sit
-  under the work on narrower ones. On phones it becomes one walk from top to bottom.
+  taller, quiet works a little smaller. On phones it becomes one walk from top to bottom.
 - **The room takes on the painting.** One warm wall colour and one ink colour. Each work's average
   colour is sampled at build time and the page takes on a little of it while you look at that work.
 - **Gallery conventions instead of shop conventions.** Numbered labels, a list of every work,
@@ -59,15 +65,13 @@ After the first deploy, turn on email notifications in the Netlify dashboard:
 *Site configuration → Forms → Form notifications → Email*. Each message arrives with the subject
 already filled in, e.g. `Inquiry about “A place in my head” (No. 07)`.
 
-If sending fails (and in local development), visitors are offered email instead. While the email
-is still a placeholder, they are pointed to her Instagram.
+If sending fails (and in local development), visitors are offered email instead.
 
 ## What still needs real information
 
 Everything shown on the site with a dashed, monospaced `[placeholder]` style. To find them all,
 search `src/content` for `[`. In particular:
 
-- **Email address** — `artist.email` in `site.ts`
 - **Bio** and **statement** — `site.ts`. The statement ("How I work") is a first-person draft
   written by the designer from looking at the paintings. It is clearly labelled as such and must be
   replaced or approved by Alexandra.

@@ -3,7 +3,6 @@ import { artist } from '../content/site'
 import { useTitle } from '../lib/room'
 import { InquiryForm, type Topic } from '../components/InquiryForm'
 import { Ph, isPlaceholder } from '../components/Ph'
-import { Note } from '../components/Note'
 
 const TOPICS: Topic[] = ['work', 'commission', 'collaboration', 'other']
 
@@ -17,7 +16,7 @@ export function Contact() {
   return (
     <div className="page contact">
       <header className="page-head">
-        <p className="hand page-hand">say hi —</p>
+        <p className="voice page-aside">say hi —</p>
         <h1 className="page-title">Write to me</h1>
         <div className="page-intro">
           <p>
@@ -50,7 +49,10 @@ export function Contact() {
             </p>
           </div>
           {artist.commissionsOpen && (
-            <Note words={{ text: 'DM me for commissions!', lang: 'en' }} tilt={2.2} className="contact-note" />
+            <div>
+              <h2 className="section-label">Commissions</h2>
+              <p>I paint on commission — tell me what you have in mind.</p>
+            </div>
           )}
         </aside>
       </div>

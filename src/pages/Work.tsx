@@ -11,7 +11,6 @@ import { Ph, isPlaceholder } from '../components/Ph'
 import { Viewer } from '../components/Viewer'
 import { InquiryForm } from '../components/InquiryForm'
 import { Reveal } from '../components/Reveal'
-import { Note, tiltFor } from '../components/Note'
 import { NotFound } from './NotFound'
 
 const formatDate = (iso: string) =>
@@ -58,7 +57,7 @@ function WorkView({ work }: { work: Artwork }) {
     <article className="work">
       <nav className="work-topbar" aria-label="Works">
         <Link to={`/#${work.slug}`} className="arrow-link">
-          ← All my works
+          ← All works
         </Link>
         <span className="work-count">
           <Link to={`/work/${prev.slug}`} aria-label={`Previous: ${prev.title}`}>
@@ -143,20 +142,23 @@ function WorkView({ work }: { work: Artwork }) {
           </AnimatePresence>
 
           {work.words && (
-            <Note
-              words={work.words}
-              tilt={tiltFor(work.slug)}
-              className="work-note-slip"
-              source={
-                <>
-                  me, on{' '}
+            <figure className="work-words">
+              <blockquote lang={work.words.lang} className="voice">
+                {work.words.text.split('\n').map((line, k) => (
+                  <p key={k}>{line}</p>
+                ))}
+              </blockquote>
+              <figcaption>
+                {work.words.translation && <span className="work-words-translation">{work.words.translation}</span>}
+                <span>
+                  {artist.firstName}, on{' '}
                   <a href={work.words.source} target="_blank" rel="noreferrer">
                     Instagram
                   </a>
                   , {formatDate(work.words.date)}
-                </>
-              }
-            />
+                </span>
+              </figcaption>
+            </figure>
           )}
         </motion.aside>
       </div>
@@ -164,7 +166,7 @@ function WorkView({ work }: { work: Artwork }) {
       {(work.description || more.length > 0) && (
         <section className="work-more" aria-label="Closer">
           <div className="work-more-head">
-            <h2 className="hand work-more-title">
+            <h2 className="voice work-more-title">
               {more.length === 0
                 ? 'about it'
                 : more.every((m) => m.kind === 'detail')

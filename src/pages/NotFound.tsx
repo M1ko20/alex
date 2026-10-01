@@ -5,7 +5,7 @@ export function NotFound() {
   useTitle('Not found')
   return (
     <div className="page notfound">
-      <p className="hand page-hand">oops —</p>
+      <p className="voice page-aside">oops —</p>
       <h1 className="page-title">Nothing hangs here.</h1>
       <p>
         <Link to="/" className="arrow-link">

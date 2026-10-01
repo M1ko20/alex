@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { availableWorks } from '../content/artworks'
 import { artist } from '../content/site'
+
+const AVAILABLE = availableWorks().length
 
 const NAV = [
   { to: '/', label: 'Works', end: true },
-  { to: '/available', label: 'Available' },
-  { to: '/about', label: 'About me' },
-  { to: '/contact', label: 'Write to me' },
+  { to: '/available', label: 'Available', count: AVAILABLE },
+  { to: '/about', label: 'About' },
+  { to: '/contact', label: 'Contact' },
 ]
 
 export function Header() {
@@ -45,6 +48,7 @@ export function Header() {
             {NAV.map((n) => (
               <NavLink key={n.to} to={n.to} end={n.end}>
                 {n.label}
+                {!!n.count && <sup className="nav-count">{n.count}</sup>}
               </NavLink>
             ))}
           </nav>
@@ -60,9 +64,12 @@ export function Header() {
             {n.label}
           </NavLink>
         ))}
-        <a href={artist.instagram.url} target="_blank" rel="noreferrer" className="menu-ig">
-          @{artist.instagram.handle} ↗
-        </a>
+        <p className="menu-direct">
+          <a href={`mailto:${artist.email}`}>{artist.email}</a>
+          <a href={artist.instagram.url} target="_blank" rel="noreferrer">
+            Instagram @{artist.instagram.handle} ↗
+          </a>
+        </p>
       </nav>
     </>
   )

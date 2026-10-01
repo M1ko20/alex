@@ -1,18 +1,15 @@
-import { Fragment, useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
+import { useLayoutEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import type { Artwork } from '../content/types'
 import { image, ratio } from '../content/images'
 import { setRoom } from '../lib/room'
 import { Art } from './Art'
 import { Label } from './Label'
-import { Note, tiltFor } from './Note'
 import { Reveal } from './Reveal'
 
-/** A note slip takes this much of the row, relative to the row's height. */
-const NOTE_R = 0.5
 const MAX_PER_ROW = 4
 
-type Unit = { work: Artwork; r: number; note: boolean }
+type Unit = { work: Artwork; r: number }
 type Row = { units: Unit[]; h: number; capped: boolean }
 
 /**
@@ -21,15 +18,14 @@ type Row = { units: Unit[]; h: number; capped: boolean }
  * at a time) so that each comes out close to a comfortable height; rows with
  * a lead work aim a little taller, quiet works a little shorter.
  */
-function hang(units: Unit[], width: number, vh: number, gap: number, noteR: number): Row[] {
+function hang(units: Unit[], width: number, vh: number, gap: number): Row[] {
   const targetH = Math.min(width * 0.46, vh * 0.7, 660)
   const maxH = Math.max(240, vh - 120)
 
   const measure = (i: number, j: number) => {
     const us = units.slice(i, j)
-    const notes = noteR ? us.filter((u) => u.note).length : 0
-    const sum = us.reduce((a, u) => a + u.r + (u.note ? noteR : 0), 0)
-    const natural = (width - gap * (us.length + notes - 1)) / sum
+    const sum = us.reduce((a, u) => a + u.r, 0)
+    const natural = (width - gap * (us.length - 1)) / sum
     const h = Math.min(natural, maxH)
     const aim =
       targetH *
@@ -83,7 +79,7 @@ export function Piece({ work, sizes, eager }: { work: Artwork; sizes: string; ea
 
 const initialWidth = () => (typeof window === 'undefined' ? 1200 : Math.min(window.innerWidth, 1680) - 32)
 
-export function Wall({ works, notes = true }: { works: Artwork[]; notes?: boolean }) {
+export function Wall({ works }: { works: Artwork[] }) {
   const ref = useRef<HTMLDivElement>(null)
   const [size, setSize] = useState(() => ({ w: initialWidth(), vh: typeof window === 'undefined' ? 900 : innerHeight }))
 
@@ -101,20 +97,10 @@ export function Wall({ works, notes = true }: { works: Artwork[]; notes?: boolea
   }, [])
 
   const stack = size.w < 640
-  const inlineNotes = size.w >= 980
   const gap = size.w >= 1000 ? 18 : 12
 
-  const units = useMemo<Unit[]>(
-    () => works.map((work) => ({ work, r: ratio(work.images[0].file), note: notes && !!work.words })),
-    [works, notes],
-  )
-  const rows = useMemo(
-    () => (stack ? [] : hang(units, size.w, size.vh, gap, inlineNotes ? NOTE_R : 0)),
-    [units, size, stack, inlineNotes, gap],
-  )
-
-  const noteFor = (u: Unit, cls: string) =>
-    u.note && u.work.words ? <Note words={u.work.words} tilt={tiltFor(u.work.slug)} className={cls} /> : null
+  const units = useMemo<Unit[]>(() => works.map((work) => ({ work, r: ratio(work.images[0].file) })), [works])
+  const rows = useMemo(() => (stack ? [] : hang(units, size.w, size.vh, gap)), [units, size, stack, gap])
 
   if (stack) {
     return (
@@ -122,7 +108,6 @@ export function Wall({ works, notes = true }: { works: Artwork[]; notes?: boolea
         {units.map((u) => (
           <Reveal key={u.work.slug} id={u.work.slug} className={`stack-item is-${u.work.presence}`}>
             <Piece work={u.work} sizes="92vw" />
-            {noteFor(u, 'is-under')}
           </Reveal>
         ))}
       </div>
@@ -138,22 +123,15 @@ export function Wall({ works, notes = true }: { works: Artwork[]; notes?: boolea
           style={{ '--h': `${row.h}px` } as CSSProperties}
         >
           {row.units.map((u, k) => (
-            <Fragment key={u.work.slug}>
-              <Reveal
-                id={u.work.slug}
-                className="wall-item"
-                style={{ width: `calc(var(--h) * ${u.r})` }}
-                delay={Math.min(k, 3) * 0.08}
-              >
-                <Piece work={u.work} sizes={`${Math.ceil(row.h * u.r)}px`} />
-                {!inlineNotes && noteFor(u, 'is-under')}
-              </Reveal>
-              {inlineNotes && u.note && (
-                <Reveal className="wall-note" style={{ width: `calc(var(--h) * ${NOTE_R})` }} delay={0.2}>
-                  {noteFor(u, 'is-tile')}
-                </Reveal>
-              )}
-            </Fragment>
+            <Reveal
+              key={u.work.slug}
+              id={u.work.slug}
+              className="wall-item"
+              style={{ width: `calc(var(--h) * ${u.r})` }}
+              delay={Math.min(k, 3) * 0.08}
+            >
+              <Piece work={u.work} sizes={`${Math.ceil(row.h * u.r)}px`} />
+            </Reveal>
           ))}
         </div>
       ))}

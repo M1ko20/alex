@@ -15,8 +15,7 @@ export const artist = {
     url: 'https://www.instagram.com/al.3xqndra/',
   },
 
-  /** Replace with a real address. While it is a placeholder, no mailto links are shown. */
-  email: '[ARTIST EMAIL]',
+  email: 'alexandratomanova06@gmail.com',
 
   /** From the Instagram bio: “DM me for commissions!” */
   commissionsOpen: true,

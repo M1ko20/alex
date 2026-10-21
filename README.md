@@ -1,14 +1,39 @@
 # Alexandra Tomanová — website
 
 The personal digital gallery of Alexandra Tomanová (Instagram [@al.3xqndra](https://www.instagram.com/al.3xqndra/)).
-Static site: React + TypeScript + Vite, deployable on Netlify.
+React + TypeScript + Vite front end, served by PHP, with an admin at `/admin` for the works.
 
 ```bash
 npm install
-npm run dev        # local development
+npm run dev        # local development, admin at http://localhost:5173/admin (needs PHP 8.1+)
+npm run php        # build and run the whole PHP site at http://localhost:8000 (needs PHP 8.1+)
 npm run images     # after adding or changing any photo in /artwork
-npm run build      # production build → /dist
+npm run build      # production build → /dist (upload this to the hosting)
 ```
+
+## PHP hosting and the admin
+
+Upload the **contents** of `dist/` to the web root of the hosting (Apache with `.htaccess`, PHP 8.1+
+with GD + WebP — the usual Czech shared hosting). Then:
+
+- The site: every page goes through `index.php`, which puts the live works into the built page.
+- The admin: **`/admin`**, password in `public/lib/config.php` (not in git — copy `config.example.php` and fill it in) (also the address the enquiry form
+  sends to). It can add, edit, hide, reorder and delete works, and upload, describe, reorder and
+  delete their photos. Uploaded photos get the same treatment as `npm run images` (WebP sizes,
+  placeholder, colours), in PHP: `public/lib/images.php`.
+- `data/` and `img/` must be **writable** by PHP (775). The admin warns if they aren't.
+
+**Where the data lives.** The build ships a starting copy in `content/` (`public/content/` in the
+repo). The first time anything is read, the server uses that; the first change in the admin writes the
+live copy to `data/`. `data/` is not part of the build, so uploading a new build never undoes what
+was changed in the admin. **Never delete `data/` on the server**, and don't upload an empty one over
+it. Changing `public/content/artworks.json` in the repo therefore only affects a fresh install.
+
+**Locally** (`npm run dev`, `npm run php`) the admin keeps its data in `.data/` in the repo (not committed,
+not part of a build), and the dev site shows it. Photos uploaded locally go to `public/img/`.
+
+Nginx doesn't read `.htaccess`: there, send unknown paths to `/index.php` and deny `/lib/` and `/data/`
+in the server config.
 
 ## Creative direction, in short
 
@@ -37,40 +62,46 @@ npm run build      # production build → /dist
 
 | What | Where |
 | --- | --- |
-| The works (titles, year, medium, size, availability, images, her words) | `src/content/artworks.ts` |
+| The works (titles, year, medium, size, availability, images, her words) | the admin on the live site; starting copy in `public/content/artworks.json` |
 | Artist info, bio, statement, email, projects | `src/content/site.ts` |
 | Content types + the placeholder convention | `src/content/types.ts` |
 | Original photos (one folder per work) | `artwork/<slug>/01-work.jpg`, `02-detail.jpg`, … |
-| Generated responsive images + manifest | `public/img/…`, `src/content/images.generated.json` (don't edit by hand) |
+| Generated responsive images + manifest | `public/img/…`, `public/content/images.json` (don't edit by hand) |
+| The PHP side (pages, admin, enquiry form) | `public/index.php`, `public/admin/`, `public/api/`, `public/lib/` |
 
 ### Adding a new work
+
+On the live site: `/admin` → *Přidat obraz*. Its position in the list is its position on the wall
+and sets its number.
+
+To change the starting copy in the repo instead:
 
 1. Create `artwork/<slug>/` and put the straight-on photo in as `01-work.jpg`. Details, studio shots
    and so on follow as `02-…`, `03-…`.
 2. Run `npm run images`.
-3. Add an entry to `src/content/artworks.ts`. **Its position in the list is its position on the
+3. Add an entry to `public/content/artworks.json`. **Its position in the list is its position on the
    wall** and sets its number. Set `presence` to `lead` (its own wall), `standard` (paired) or
    `quiet` (smaller).
 
 ### Selling a work
 
-Set `availability: 'available'` (optionally `price: '€…'`; without it the site says "Price on
+In the admin, set *Stav* to *Na prodej*. In the JSON: `availability: 'available'` (optionally `price: '€…'`; without it the site says "Price on
 request"). It then appears on the Available page, is marked on the wall, and gets an enquiry form.
 Other states: `reserved`, `sold`, `gifted`, `private`, `unknown`.
 
-## Enquiries (no backend)
+## Enquiries
 
-The forms post to **Netlify Forms**. A hidden copy of the form in `index.html` lets Netlify detect it.
-After the first deploy, turn on email notifications in the Netlify dashboard:
-*Site configuration → Forms → Form notifications → Email*. Each message arrives with the subject
-already filled in, e.g. `Inquiry about “A place in my head” (No. 07)`.
+The forms post to `public/api/inquiry.php`, which emails the message to the address in
+`public/lib/config.php` with Reply-To set to the visitor; nothing is stored. Each message arrives with
+the subject already filled in, e.g. `Inquiry about “A place in my head” (No. 07)`. If the hosting
+only sends mail from an existing mailbox, set `mail_from` there.
 
 If sending fails (and in local development), visitors are offered email instead.
 
 ## What still needs real information
 
 Everything shown on the site with a dashed, monospaced `[placeholder]` style. To find them all,
-search `src/content` for `[`. In particular:
+search `public/content/artworks.json` and `src/content` for `[`. In particular:
 
 - **Bio** and **statement** — `site.ts`. The statement ("How I work") is a first-person draft
   written by the designer from looking at the paintings. It is clearly labelled as such and must be

@@ -1,0 +1,20 @@
+# Apache (most Czech PHP hostings). Every page goes through index.php, which
+# adds the live works edited in /admin.
+DirectoryIndex index.php
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^index\.html$ index.php [L]
+  # Anything that isn't a real file or folder is a page of the app (/work/…, /about…).
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.php [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Built and uploaded images never change under the same file name — cache them hard.
+  <FilesMatch "\.(webp|woff2?|js|css)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>

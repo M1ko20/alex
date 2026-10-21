@@ -1,4 +1,4 @@
-import manifest from './images.generated.json'
+import { siteData } from './data'
 
 export interface ImageData {
   width: number
@@ -12,7 +12,7 @@ export interface ImageData {
 // The manifest stores root-relative paths; prefix them when the site lives under a sub-path.
 const base = import.meta.env.BASE_URL.replace(/\/$/, '')
 const images: Record<string, ImageData> = Object.fromEntries(
-  Object.entries(manifest as Record<string, ImageData>).map(([file, data]) => [
+  Object.entries(siteData.images).map(([file, data]) => [
     file,
     { ...data, srcset: data.srcset.map((s) => ({ ...s, src: base + s.src })) },
   ]),

@@ -111,18 +111,22 @@ function WorkView({ work }: { work: Artwork }) {
               <dt>Year</dt>
               <dd>{work.year ?? <Ph>[Year]</Ph>}</dd>
             </div>
-            <div>
-              <dt>Medium</dt>
-              <dd>
-                <Ph>{work.medium}</Ph>
-              </dd>
-            </div>
-            <div>
-              <dt>Size</dt>
-              <dd>
-                <Ph>{work.dimensions}</Ph>
-              </dd>
-            </div>
+            {work.medium && (
+              <div>
+                <dt>Medium</dt>
+                <dd>
+                  <Ph>{work.medium}</Ph>
+                </dd>
+              </div>
+            )}
+            {work.dimensions && (
+              <div>
+                <dt>Size</dt>
+                <dd>
+                  <Ph>{work.dimensions}</Ph>
+                </dd>
+              </div>
+            )}
           </dl>
 
           <Availability work={work} asking={asking} onAsk={() => setAsking((a) => !a)} />
@@ -151,11 +155,16 @@ function WorkView({ work }: { work: Artwork }) {
               <figcaption>
                 {work.words.translation && <span className="work-words-translation">{work.words.translation}</span>}
                 <span>
-                  {artist.firstName}, on{' '}
-                  <a href={work.words.source} target="_blank" rel="noreferrer">
-                    Instagram
-                  </a>
-                  , {formatDate(work.words.date)}
+                  {artist.firstName}
+                  {work.words.source && (
+                    <>
+                      , on{' '}
+                      <a href={work.words.source} target="_blank" rel="noreferrer">
+                        Instagram
+                      </a>
+                    </>
+                  )}
+                  {work.words.date && <>, {formatDate(work.words.date)}</>}
                 </span>
               </figcaption>
             </figure>

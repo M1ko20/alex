@@ -8,6 +8,7 @@
     "images": "node scripts/process-images.mjs",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
+    "php": "vite build && SITE_DATA_DIR=$PWD/.data php -S localhost:8000 -t dist scripts/php-router.php",
     "lint": "oxlint"
   },
   "dependencies": {

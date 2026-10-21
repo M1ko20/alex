@@ -9,7 +9,7 @@ import { Piece, Wall } from '../components/Wall'
 import { Reveal } from '../components/Reveal'
 
 const YEARS = artworks.flatMap((a) => (a.year ? [a.year] : []))
-const SPAN = `${Math.min(...YEARS)}–${Math.max(...YEARS)}`
+const SPAN = YEARS.length ? `${Math.min(...YEARS)}–${Math.max(...YEARS)}` : ''
 
 export function Home() {
   useTitle()
@@ -24,20 +24,22 @@ export function Home() {
 
   return (
     <>
-      <section className="hero" id={first.slug}>
+      <section className="hero" id={first?.slug}>
         <div className="hero-head">
           <p className="section-label hero-eyebrow">
             <span>Paintings &amp; collages</span>
-            <span>{SPAN}</span>
+            {SPAN && <span>{SPAN}</span>}
           </p>
           <h1 className="hero-name">
             <span>{given}</span> <span>{family}</span>
           </h1>
         </div>
 
-        <div className="hero-work" style={{ '--r': ratio(first.images[0].file) } as CSSProperties}>
-          <Piece work={first} eager sizes="(max-width: 760px) 92vw, 50vw" />
-        </div>
+        {first && (
+          <div className="hero-work" style={{ '--r': ratio(first.images[0].file) } as CSSProperties}>
+            <Piece work={first} eager sizes="(max-width: 760px) 92vw, 50vw" />
+          </div>
+        )}
 
         <div className="hero-text">
           <p className="hero-intro">{artist.intro}</p>
@@ -60,7 +62,7 @@ export function Home() {
             Works
           </h2>
           <p className="section-label">
-            {artworks.length} works, {SPAN}
+            {artworks.length} works{SPAN && `, ${SPAN}`}
           </p>
           {available > 0 && (
             <Link to="/available" className="arrow-link">

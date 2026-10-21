@@ -24,9 +24,9 @@ export function subjectFor(topic: Topic, work?: Artwork) {
 }
 
 /**
- * Sends through Netlify Forms (see the hidden form in index.html). Nothing is
- * stored on this site; Netlify forwards submissions to the artist by email.
- * If sending fails, the visitor is offered a direct email / Instagram route
+ * Sends through api/inquiry.php, which emails the message to the artist.
+ * Nothing is stored on the site. If sending fails (or there is no PHP, as in
+ * local development), the visitor is offered a direct email / Instagram route
  * with the same subject.
  */
 export function InquiryForm({
@@ -64,12 +64,13 @@ export function InquiryForm({
     data.set('artwork', work ? `${workNumber(work.slug)} ${work.title}` : '')
     setState('sending')
     try {
-      const res = await fetch('/', {
+      const res = await fetch(`${import.meta.env.BASE_URL}api/inquiry.php`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
       })
-      setState(res.ok ? 'sent' : 'failed')
+      const reply = res.ok ? await res.json().catch(() => null) : null
+      setState(reply?.ok ? 'sent' : 'failed')
     } catch {
       setState('failed')
     }
@@ -86,7 +87,6 @@ export function InquiryForm({
 
   return (
     <form className={`inquiry${compact ? ' is-compact' : ''}`} name="inquiry" onSubmit={submit}>
-      <input type="hidden" name="form-name" value="inquiry" />
       <p hidden>
         <label>
           Leave this empty: <input name="bot-field" />

@@ -18,9 +18,11 @@ const STUDIO = [
 export function About() {
   useTitle('About me')
 
+  // A work or photo removed in the admin simply drops off the pinboard.
   const studio = STUDIO.map((s) => {
-    const work = findWork(s.work)!
-    const img = work.images.find((im) => im.file === s.file)!
+    const work = findWork(s.work)
+    const img = work?.images.find((im) => im.file === s.file)
+    if (!work || !img) return null
     return (
       <Reveal key={s.file} className="pin-photo" style={{ '--r': ratio(s.file) } as CSSProperties} delay={0.05}>
         <Art file={s.file} alt={img.alt} sizes="(max-width: 760px) 80vw, 30vw" />

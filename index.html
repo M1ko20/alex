@@ -15,21 +15,7 @@
   </head>
   <body>
     <div id="root"></div>
-    <!--
-      Netlify Forms: this static copy of the inquiry form lets Netlify detect the
-      form at build time. The visible form is rendered by React (InquiryForm.tsx)
-      and posts the same fields. Set up email notifications in the Netlify UI:
-      Site settings → Forms → Form notifications.
-    -->
-    <form name="inquiry" data-netlify="true" netlify-honeypot="bot-field" hidden>
-      <input type="text" name="name" />
-      <input type="email" name="email" />
-      <input type="text" name="topic" />
-      <input type="text" name="artwork" />
-      <input type="text" name="subject" />
-      <textarea name="message"></textarea>
-      <input type="text" name="bot-field" />
-    </form>
+    <!--site-data-->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

@@ -3,12 +3,16 @@
  *
  * Reads every original in /artwork (any depth, .jpg/.jpeg/.png/.webp),
  * writes responsive WebP files to /public/img and a manifest to
- * src/content/images.generated.json containing size, a tiny blurred
+ * public/content/images.json containing size, a tiny blurred
  * placeholder and two colours sampled from the image:
  *   - `wall`   : the average colour — used to tint the "room" around a work
  *   - `accent` : the most saturated recurring colour
  *
  * Run after adding or replacing images:  npm run images
+ *
+ * This is the starting copy the site is built with. On the PHP server, photos
+ * are uploaded in the admin (/admin), which does the same in PHP
+ * (public/lib/images.php) and keeps its own manifest in data/.
  */
 import sharp from 'sharp'
 import fs from 'node:fs/promises'
@@ -17,7 +21,7 @@ import path from 'node:path'
 const ROOT = path.resolve(import.meta.dirname, '..')
 const SRC = path.join(ROOT, 'artwork')
 const OUT = path.join(ROOT, 'public', 'img')
-const MANIFEST = path.join(ROOT, 'src', 'content', 'images.generated.json')
+const MANIFEST = path.join(ROOT, 'public', 'content', 'images.json')
 const WIDTHS = [640, 1200, 2000, 2800]
 
 async function walk(dir) {

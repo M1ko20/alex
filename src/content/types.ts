@@ -64,6 +64,8 @@ export interface Artwork {
    *  quiet    — smaller, paired or on its own
    */
   presence: 'lead' | 'standard' | 'quiet'
+  /** true = kept in the admin but not shown on the site */
+  hidden?: boolean
   images: ArtworkImage[]
   words?: ArtistWords
   description: string

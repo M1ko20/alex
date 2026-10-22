@@ -5,6 +5,10 @@ Options -Indexes
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  # Always over HTTPS (the certificate is Let's Encrypt, set up in the WEDOS admin).
+  RewriteCond %{HTTPS} off
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
   RewriteRule ^index\.html$ index.php [L]
   # Anything that isn't a real file or folder is a page of the app (/work/…, /about…).
   RewriteCond %{REQUEST_FILENAME} !-f

@@ -28,3 +28,6 @@ dist-ssr
 
 # Holds the admin password; the repository is public. Template: config.example.php
 public/lib/config.php
+
+# FTP login for npm run deploy. Template: .deploy.env.example
+.deploy.env

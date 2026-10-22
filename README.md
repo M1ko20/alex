@@ -9,6 +9,7 @@ npm run dev        # local development, admin at http://localhost:5173/admin (ne
 npm run php        # build and run the whole PHP site at http://localhost:8000 (needs PHP 8.1+)
 npm run images     # after adding or changing any photo in /artwork
 npm run build      # production build → /dist (upload this to the hosting)
+npm run deploy     # build and upload to the hosting over FTP (login in .deploy.env)
 ```
 
 ## PHP hosting and the admin

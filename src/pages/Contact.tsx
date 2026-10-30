@@ -48,6 +48,14 @@ export function Contact() {
               </a>
             </p>
           </div>
+          <div>
+            <h2 className="section-label">Or on TikTok</h2>
+            <p>
+              <a href={artist.tiktok.url} target="_blank" rel="noreferrer">
+                @{artist.tiktok.handle} ↗
+              </a>
+            </p>
+          </div>
           {artist.commissionsOpen && (
             <div>
               <h2 className="section-label">Commissions</h2>

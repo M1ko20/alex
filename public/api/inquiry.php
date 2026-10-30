@@ -45,5 +45,8 @@ $headers = implode("\r\n", [
     'Content-Transfer-Encoding: 8bit',
 ]);
 
-$sent = @mail($config['contact_email'], mb_encode_mimeheader($subject, 'UTF-8'), $body, $headers);
+// The return path has to be on this domain, or the hosting's own address is used and SPF fails.
+$returnPath = filter_var($from, FILTER_VALIDATE_EMAIL) ? "-f$from" : '';
+
+$sent = @mail($config['contact_email'], mb_encode_mimeheader($subject, 'UTF-8'), $body, $headers, $returnPath);
 reply($sent, $sent ? 200 : 500);

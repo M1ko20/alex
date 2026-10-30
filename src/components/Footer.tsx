@@ -30,6 +30,11 @@ export function Footer() {
             </a>
           </li>
           <li>
+            <a href={artist.tiktok.url} target="_blank" rel="noreferrer">
+              TikTok <span className="dim">@{artist.tiktok.handle}</span> ↗
+            </a>
+          </li>
+          <li>
             {isPlaceholder(artist.email) ? (
               <Ph>{artist.email}</Ph>
             ) : (

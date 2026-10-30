@@ -5,7 +5,6 @@ import { artist, projects } from '../content/site'
 import { ratio } from '../content/images'
 import { useTitle } from '../lib/room'
 import { Art } from '../components/Art'
-import { Ph } from '../components/Ph'
 import { Reveal } from '../components/Reveal'
 
 /** Photos from the works' own posts that show the studio side of things. */
@@ -46,12 +45,15 @@ export function About() {
           <h1 className="page-title">About me</h1>
           {artist.bio.map((p, i) => (
             <p key={i} className={i === 0 ? 'lede' : undefined}>
-              <Ph>{p}</Ph>
+              {p}
             </p>
           ))}
           <p className="about-links">
             <a href={artist.instagram.url} target="_blank" rel="noreferrer" className="arrow-link">
               @{artist.instagram.handle} on Instagram ↗
+            </a>
+            <a href={artist.tiktok.url} target="_blank" rel="noreferrer" className="arrow-link">
+              @{artist.tiktok.handle} on TikTok ↗
             </a>
             {artist.commissionsOpen && (
               <Link to="/contact?about=commission" className="arrow-link">
@@ -62,16 +64,8 @@ export function About() {
 
           <div className="about-statement">
             <h2 className="section-label">How I work</h2>
-            <p className="ph-note">
-              <mark className="ph">
-                [DRAFT — written in my voice by the web designer, from looking at the paintings. Not my words until I
-                replace or approve it.]
-              </mark>
-            </p>
-            {artist.statementPlaceholder.map((p, i) => (
-              <p key={i} className="is-draft">
-                {p}
-              </p>
+            {artist.statement.map((p, i) => (
+              <p key={i}>{p}</p>
             ))}
           </div>
         </div>
@@ -96,9 +90,7 @@ export function About() {
             </div>
             <div>
               <p className="project-kind">{p.kind}</p>
-              <p>
-                <Ph>{p.text}</Ph>
-              </p>
+              {p.text && <p>{p.text}</p>}
               {p.instagram && (
                 <p>
                   <a href={p.instagram} target="_blank" rel="noreferrer" className="arrow-link">

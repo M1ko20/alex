@@ -7,7 +7,7 @@ import { image, ratio } from '../content/images'
 import { artist } from '../content/site'
 import { useRoom, useTitle } from '../lib/room'
 import { Art } from '../components/Art'
-import { Ph, isPlaceholder } from '../components/Ph'
+import { Ph, filled, isPlaceholder } from '../components/Ph'
 import { Viewer } from '../components/Viewer'
 import { InquiryForm } from '../components/InquiryForm'
 import { Reveal } from '../components/Reveal'
@@ -100,18 +100,15 @@ function WorkView({ work }: { work: Artwork }) {
           <p className="work-no">No. {workNumber(work.slug)}</p>
           <h1 className="work-title">{work.title}</h1>
           {work.titleTranslation && <p className="work-translation">{work.titleTranslation}</p>}
-          {work.workingTitle && (
-            <p className="work-note">
-              <Ph>[Working title — I still need to confirm it]</Ph>
-            </p>
-          )}
 
           <dl className="work-facts">
-            <div>
-              <dt>Year</dt>
-              <dd>{work.year ?? <Ph>[Year]</Ph>}</dd>
-            </div>
-            {work.medium && (
+            {work.year && (
+              <div>
+                <dt>Year</dt>
+                <dd>{work.year}</dd>
+              </div>
+            )}
+            {filled(work.medium) && (
               <div>
                 <dt>Medium</dt>
                 <dd>
@@ -119,7 +116,7 @@ function WorkView({ work }: { work: Artwork }) {
                 </dd>
               </div>
             )}
-            {work.dimensions && (
+            {filled(work.dimensions) && (
               <div>
                 <dt>Size</dt>
                 <dd>
@@ -172,7 +169,7 @@ function WorkView({ work }: { work: Artwork }) {
         </motion.aside>
       </div>
 
-      {(work.description || more.length > 0) && (
+      {(filled(work.description) || more.length > 0) && (
         <section className="work-more" aria-label="Closer">
           <div className="work-more-head">
             <h2 className="voice work-more-title">
@@ -182,7 +179,7 @@ function WorkView({ work }: { work: Artwork }) {
                   ? 'closer'
                   : 'closer, and around it'}
             </h2>
-            {work.description && (
+            {filled(work.description) && (
               <p className="work-description">
                 <Ph>{work.description}</Ph>
               </p>

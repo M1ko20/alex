@@ -69,6 +69,9 @@ export function Header() {
           <a href={artist.instagram.url} target="_blank" rel="noreferrer">
             Instagram @{artist.instagram.handle} ↗
           </a>
+          <a href={artist.tiktok.url} target="_blank" rel="noreferrer">
+            TikTok @{artist.tiktok.handle} ↗
+          </a>
         </p>
       </nav>
     </>

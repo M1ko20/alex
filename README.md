@@ -57,7 +57,7 @@ in the server config.
 - **Gallery conventions instead of shop conventions.** Numbered labels, a list of every work,
   "Price on request". An available work is marked with a small **hollow** dot — the opposite of a
   gallery's red "sold" sticker. "Ask me about this one" opens a message that already names the work.
-- **Nothing invented.** Anything we don't know is a visible `[placeholder]`.
+- **Nothing invented.** Anything we don't know stays a `[placeholder]` in the data and is left off the page.
 
 ## Where things live
 
@@ -101,12 +101,12 @@ If sending fails (and in local development), visitors are offered email instead.
 
 ## What still needs real information
 
-Everything shown on the site with a dashed, monospaced `[placeholder]` style. To find them all,
+Everything marked as a `[placeholder]`, which the site leaves out. To find them all,
 search `public/content/artworks.json` and `src/content` for `[`. In particular:
 
-- **Bio** and **statement** — `site.ts`. The statement ("How I work") is a first-person draft
-  written by the designer from looking at the paintings. It is clearly labelled as such and must be
-  replaced or approved by Alexandra.
+- **Statement** — `site.ts`. The statement ("How I work") is a first-person draft
+  written by the designer from looking at the paintings, shown on the site as it is. Alexandra can
+  replace it any time.
 - **All the first-person copy** (the intro on the home page, the lines on the Available and Contact
   pages, "I made this one as a gift", etc.) was drafted in her voice from what is visible in the
   works and her captions. She should read it through and change anything that doesn't sound like her.

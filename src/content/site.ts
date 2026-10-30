@@ -15,6 +15,11 @@ export const artist = {
     url: 'https://www.instagram.com/al.3xqndra/',
   },
 
+  tiktok: {
+    handle: 'alexandra.tomanova',
+    url: 'https://www.tiktok.com/@alexandra.tomanova',
+  },
+
   email: 'alexandratomanova06@gmail.com',
 
   /** From the Instagram bio: “DM me for commissions!” */
@@ -41,16 +46,17 @@ export const artist = {
   },
 
   bio: [
-    '[ABOUT ME — REPLACE WITH REAL INFORMATION. A few lines in my own words: where I live and paint, how long I’ve been painting, what I’m working on now.]',
-    '[Optional — my studies, exhibitions or projects, only if confirmed.]',
+    'My name is Alexandra, and I’m an ambitious artist. Since I was a child, I’ve loved drawing and painting, and it has always been my favorite hobby.',
+    'After finishing primary school, I studied at an art high school for four years, where I developed my skills and passion for art even further.',
+    'Even when life became difficult after my cancer diagnosis, I never stopped painting. Art has always been a part of me and has helped me through some of the hardest moments in my life.',
+    'I hope you enjoy my art, and feel free to support me on my journey!',
   ],
 
   /**
-   * PLACEHOLDER STATEMENT — drafted in the first person by the web designer
-   * from looking at the paintings. They are not Alexandra's words until she
-   * replaces or approves them.
+   * Drafted in the first person by the web designer from looking at the
+   * paintings, and shown on the site as it is.
    */
-  statementPlaceholder: [
+  statement: [
     'I work in two ways. Sometimes a figure surfaces out of long, wet strokes of colour — a creature with too many eyes, a dove opening out of a flower, an angel whose wing is built from single dabs of paint. Other times the canvas becomes a place to keep things: tickets, wristbands, blister packs, pressed flowers, handwriting, pearls, with painted faces looking out from between them.',
     'Many of the paintings are made for someone — for my angels, for the dearest doctor, for the person who wished for a positive abstraction. I keep coming back to childhood, to cats, and to the people who stay close.',
   ],
@@ -68,7 +74,6 @@ export const projects: Project[] = [
     titleTranslation: 'The joys in us',
     year: 2026,
     kind: 'My graduation project in graphic design: an illustrated series, a poster and a leporello.',
-    text: '[A few lines from me about the series — what it’s about, how many pieces there are, the technique.]',
     images: [
       {
         file: 'artist/exhibition-room.jpg',

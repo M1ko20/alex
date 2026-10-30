@@ -2,10 +2,9 @@
  * Content model.
  *
  * PLACEHOLDER CONVENTION
- * Any text wrapped in [square brackets] is placeholder copy. It is rendered
- * with a visible dashed highlight on the site so nothing unconfirmed can pass
- * as fact. Search the /src/content folder for "[" to find everything that
- * still needs real information.
+ * Any text wrapped in [square brackets] is placeholder copy. It is left off the
+ * site, so nothing unconfirmed can pass as fact. Search the /src/content folder
+ * for "[" to find everything that still needs real information.
  */
 
 export type Availability =
@@ -78,7 +77,7 @@ export interface Project {
   titleTranslation?: string
   year: number
   kind: string
-  text: string
+  text?: string
   images: ArtworkImage[]
   instagram?: string
 }

@@ -147,21 +147,6 @@ h3 {
   top: 8px;
 }
 
-/* Placeholder copy: impossible to mistake for the real thing. */
-.ph {
-  font-family: var(--font-mono);
-  font-size: 0.8em;
-  letter-spacing: 0;
-  color: var(--ink-2);
-  background: repeating-linear-gradient(135deg, rgb(31 26 25 / 0.06) 0 5px, transparent 5px 10px);
-  outline: 1px dashed var(--rule-strong);
-  outline-offset: 1px;
-  padding: 0.1em 0.35em;
-  border-radius: 2px;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-}
-
 .section-label {
   margin: 0 0 1em;
 }
@@ -920,11 +905,6 @@ main {
   color: var(--ink-2);
 }
 
-.work-note {
-  margin: 0.6em 0 0;
-  font-size: 13px;
-}
-
 .work-facts {
   margin: 20px 0 0;
   display: grid;
@@ -1400,13 +1380,9 @@ main {
   max-width: 62ch;
 }
 
-.about-statement .is-draft {
+.about-statement p {
   font-size: clamp(1rem, 1.2vw, 1.1rem);
   color: var(--ink-2);
-}
-
-.ph-note {
-  margin-bottom: 1.2em;
 }
 
 .pinboard {
